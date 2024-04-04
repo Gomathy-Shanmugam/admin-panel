@@ -9,11 +9,10 @@ function Blogs() {
       const blogs = await axios.get(
         "https://660d1b103a0766e85dbf94e0.mockapi.io/api/data"
       );
-
-      setbloglist (blogs.data);
-      }catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      setbloglist(blogs.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
   useEffect(() => {
     getdata();
