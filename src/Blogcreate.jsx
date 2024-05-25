@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import UserContext from "./UserContext";
 
 function Blogcreate() {
+
+  const user = useContext(UserContext)
   const navigate = useNavigate();
   let initialValues = {
     title: "",
@@ -49,11 +52,13 @@ function Blogcreate() {
 
   let onSubmit = async (values) => {
     try {
-      await axios.post(
+      const newblog = await axios.post(
         "https://660d1b103a0766e85dbf94e0.mockapi.io/api/data",
         values
+// when creating a new blog list for syoring that in context we use this lines
        
       );
+      user.setbloglisting([...user.bloglisting,newblog.data])
       navigate("/portal/blogs")
     } catch (error) {
       console.log("error");
@@ -136,6 +141,7 @@ function Blogcreate() {
                       className="btn btn-primary btn-user btn-block "
                       value="Create Blog"
                     ></input>
+                    {user.name}
                   </form>
                 );
               }}

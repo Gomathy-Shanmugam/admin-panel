@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import UserContext from "./UserContext";
 
 function Blogs() {
+  const user = useContext(UserContext)
   const [bloglist, setbloglist] = useState([]);
   let getdata = async () => {
     try {
@@ -10,13 +13,27 @@ function Blogs() {
         "https://660d1b103a0766e85dbf94e0.mockapi.io/api/data"
       );
       setbloglist(blogs.data);
+      user.setbloglisting(blogs.data)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  useEffect(() => {
-    getdata();
-  }, []);
+
+  // initial of usecontext
+  // useEffect(() => {
+  //   getdata();
+  // }, []);
+
+// to reduce the api call calls we use this method
+
+useEffect(()=>{
+  if(user.bloglisting.length===0){
+getdata();
+  }
+  else{
+setbloglist(user.bloglisting)
+  }
+})
   return (
     <div>
       <div class="container-fluid">

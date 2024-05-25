@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "./UserContext";
 
 function Topbar() {
+  const user = useContext(UserContext);
   return (
     <div>
       <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -230,7 +232,10 @@ function Topbar() {
               </a>
             </div>
           </li>
-<Link className="btn" to = {"/"}>Logout</Link>
+          <Link className="btn" to={"/"}>
+            Logout
+            {user.name}
+          </Link>
           <div className="topbar-divider d-none d-sm-block"></div>
 
           <li className="nav-item dropdown no-arrow">
@@ -276,7 +281,7 @@ function Topbar() {
                 data-target="#logoutModal"
               >
                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                Logout
+                Logout {user.name}
               </a>
             </div>
           </li>
